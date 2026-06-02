@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>APEX Fitness Toulouse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f5f5f3;
+      --light: #e8e8e4;
+      --mid: #b0b0a8;
+      --dark: #1a1a18;
+      --accent: #c8f000;
+      --accent2: #2a2a28;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 4rem;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--light);
+    }
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 1.5rem; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--dark);
+    }
+    .nav-logo span { color: var(--accent); background: var(--dark); padding: 0 4px; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none; color: var(--dark);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--mid); }
+    .nav-cta {
+      background: var(--dark); color: var(--white);
+      padding: 0.7rem 1.8rem; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase; border: none;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent2); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 4rem 5rem 6rem;
+      background: var(--off-white);
+    }
+    .hero-tag {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--mid);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(4rem, 7vw, 7.5rem);
+      font-weight: 900; line-height: 0.92;
+      text-transform: uppercase; letter-spacing: -0.01em;
+      margin-bottom: 2rem;
+    }
+    .hero-title .line-accent { color: var(--accent); -webkit-text-stroke: 0px; }
+    .hero-title .line-outline {
+      -webkit-text-stroke: 2px var(--dark);
+      color: transparent;
+    }
+    .hero-sub {
+      font-size: 1rem; font-weight: 300; line-height: 1.7;
+      color: #555; max-width: 380px; margin-bottom: 3rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; align-items: center; }
+    .btn-primary {
+      background: var(--dark); color: var(--white);
+      padding: 1rem 2.5rem; font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; border: none;
+      cursor: pointer; transition: transform 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent; color: var(--dark);
+      padding: 1rem 2rem; font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1.5px solid var(--dark); cursor: pointer; transition: all 0.2s;
+    }
+    .btn-ghost:hover { background: var(--dark); color: var(--white); }
+
+    .hero-right {
+      position: relative; overflow: hidden;
+    }
+    .hero-right img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+      filter: grayscale(20%);
+    }
+    .hero-badge {
+      position: absolute; bottom: 3rem; left: -2rem;
+      background: var(--accent); padding: 1.5rem 2rem;
+      font-family: 'Barlow Condensed', sans-serif;
+    }
+    .hero-badge .num {
+      font-size: 2.5rem; font-weight: 900; line-height: 1; color: var(--dark);
+    }
+    .hero-badge .label {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--dark);
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      background: var(--dark); display: flex;
+    }
+    .stat-item {
+      flex: 1; padding: 2.5rem 2rem;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.8rem; font-weight: 900; color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--mid); margin-top: 0.4rem;
+    }
+
+    /* SECTION COMMUN */
+    section { padding: 7rem 6rem; }
+    .section-tag {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--mid); margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 900; text-transform: uppercase;
+      line-height: 0.95; letter-spacing: -0.01em;
+    }
+
+    /* SERVICES */
+    .services { background: var(--white); }
+    .services-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 5rem;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    }
+    .service-card {
+      padding: 3rem 2.5rem;
+      border: 1px solid var(--light);
+      border-right: none;
+      transition: background 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card:last-child { border-right: 1px solid var(--light); }
+    .service-card::before {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: var(--accent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover { background: var(--off-white); }
+    .service-icon {
+      font-size: 2rem; margin-bottom: 1.5rem;
+    }
+    .service-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em;
+      color: var(--mid); margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+    .service-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.6rem; font-weight: 700;
+      text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .service-desc {
+      font-size: 0.9rem; font-weight: 300; line-height: 1.7; color: #666;
+    }
+
+    /* HORAIRES */
+    .horaires { background: var(--dark); color: var(--white); }
+    .horaires .section-title { color: var(--white); margin-bottom: 4rem; }
+    .horaires .section-tag { color: var(--mid); }
+    .horaires-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .horaire-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.5rem 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .horaire-row:nth-child(even) { background: rgba(255,255,255,0.03); }
+    .horaire-day {
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .horaire-time {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .horaires-info {
+      grid-column: 1 / -1;
+      padding: 2rem 2.5rem;
+      background: rgba(200,240,0,0.08);
+      border-top: 1px solid rgba(200,240,0,0.2);
+      font-size: 0.85rem; color: var(--mid);
+    }
+
+    /* TARIFS */
+    .tarifs { background: var(--off-white); }
+    .tarifs .section-title { margin-bottom: 4rem; }
+    .tarifs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .tarif-card {
+      background: var(--white); padding: 3rem 2.5rem;
+      border: 1px solid var(--light);
+      position: relative; transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .tarif-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
+    .tarif-card.featured {
+      background: var(--dark); color: var(--white);
+      border-color: var(--dark);
+    }
+    .tarif-badge {
+      display: inline-block;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; background: var(--accent);
+      color: var(--dark); padding: 0.3rem 0.8rem; margin-bottom: 1.5rem;
+    }
+    .tarif-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem; font-weight: 700; text-transform: uppercase;
+      margin-bottom: 1rem; letter-spacing: 0.05em;
+    }
+    .tarif-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3.5rem; font-weight: 900; line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .tarif-price .currency { font-size: 1.5rem; vertical-align: top; margin-top: 0.5rem; display: inline-block; }
+    .tarif-period {
+      font-size: 0.8rem; font-weight: 300; color: var(--mid);
+      margin-bottom: 2rem;
+    }
+    .tarif-card.featured .tarif-period { color: rgba(255,255,255,0.5); }
+    .tarif-features { list-style: none; margin-bottom: 2.5rem; }
+    .tarif-features li {
+      font-size: 0.88rem; font-weight: 400; padding: 0.6rem 0;
+      border-bottom: 1px solid var(--light);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .tarif-card.featured .tarif-features li { border-color: rgba(255,255,255,0.1); }
+    .tarif-features li::before {
+      content: '—'; color: var(--accent); font-weight: 700; flex-shrink: 0;
+    }
+    .btn-tarif {
+      width: 100%; padding: 1rem; font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+      border: 1.5px solid var(--dark); background: transparent;
+      transition: all 0.2s;
+    }
+    .btn-tarif:hover { background: var(--dark); color: var(--white); }
+    .tarif-card.featured .btn-tarif {
+      background: var(--accent); color: var(--dark); border-color: var(--accent);
+    }
+    .tarif-card.featured .btn-tarif:hover { background: #b8e000; }
+
+    /* CTA */
+    .cta-section {
+      background: var(--dark); padding: 7rem 6rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .cta-text .section-tag { color: var(--mid); margin-bottom: 1rem; }
+    .cta-text .section-title { color: var(--white); }
+    .cta-text .section-title .accent-line { color: var(--accent); }
+    .cta-action { display: flex; flex-direction: column; align-items: flex-end; gap: 1.5rem; }
+    .cta-address {
+      text-align: right; font-size: 0.85rem; font-weight: 300;
+      color: var(--mid); line-height: 1.8;
+    }
+    .btn-large {
+      background: var(--accent); color: var(--dark);
+      padding: 1.3rem 3.5rem; font-size: 0.9rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; border: none;
+      cursor: pointer; transition: transform 0.2s;
+    }
+    .btn-large:hover { transform: translateY(-3px); }
+
+    /* FOOTER */
+    footer {
+      background: #0e0e0c; padding: 3rem 6rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 1.2rem; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--white);
+    }
+    .footer-logo span { color: var(--accent); background: transparent; }
+    .footer-copy {
+      font-size: 0.75rem; color: var(--mid); letter-spacing: 0.05em;
+    }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a {
+      font-size: 0.75rem; color: var(--mid); text-decoration: none;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-left > * {
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-left > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero-left > *:nth-child(3) { animation-delay: 0.35s; }
+    .hero-left > *:nth-child(4) { animation-delay: 0.5s; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { height: 50vw; }
+      .hero-left { padding: 3rem 2rem; }
+      section { padding: 4rem 2rem; }
+      .services-grid, .tarifs-grid { grid-template-columns: 1fr; }
+      .stats-bar { flex-wrap: wrap; }
+      .stat-item { flex: 1 1 50%; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .horaires-grid { grid-template-columns: 1fr; }
+      .cta-section { flex-direction: column; gap: 3rem; }
+      .cta-action { align-items: flex-start; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem; }
+      .services-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo"><span>A</span>PEX Fitness</div>
+    <ul class="nav-links">
+      <li><a href="#services">Activités</a></li>
+      <li><a href="#horaires">Horaires</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-cta">Essai gratuit</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" style="padding:0; padding-top:80px;">
+    <div class="hero-left">
+      <p class="hero-tag">📍 Toulouse — Centre-Ville</p>
+      <h1 class="hero-title">
+        <span class="line-accent">Forge</span><br>
+        <span class="line-outline">ton</span><br>
+        Corps
+      </h1>
+      <p class="hero-sub">La salle de sport moderne qui s'adapte à ton niveau. Coaching expert, équipement premium, ambiance motivante — à deux pas de la place du Capitole.</p>
+      <div class="hero-btns">
+        <button class="btn-primary">Commencer maintenant</button>
+        <button class="btn-ghost">Voir les tarifs</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=900&q=80" alt="Salle de sport APEX Toulouse" />
+      <div class="hero-badge">
+        <div class="num">12+</div>
+        <div class="label">Années d'expérience</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num">2 400</div>
+      <div class="stat-label">Membres actifs</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">18</div>
+      <div class="stat-label">Coachs certifiés</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">1 200m²</div>
+      <div class="stat-label">D'espace d'entraînement</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Cours par semaine</div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-header">
+      <div>
+        <p class="section-tag">Ce qu'on propose</p>
+        <h2 class="section-title">Nos<br>Activités</h2>
+      </div>
+      <p style="font-size:0.9rem;color:#888;max-width:300px;font-weight:300;line-height:1.7;">Des disciplines variées pour atteindre tous tes objectifs, encadrées par des pros.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🏋️</div>
+        <div class="service-num">01</div>
+        <div class="service-name">Musculation</div>
+        <p class="service-desc">Zone free weights de 600m², machines cardio dernière génération, espace fonctionnel. Tout le matériel pour progresser à ton rythme.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🥊</div>
+        <div class="service-num">02</div>
+        <div class="service-name">Boxe & Combat</div>
+        <p class="service-desc">Salle dédiée avec ring, sacs de frappe, cours collectifs de boxe anglaise, MMA et self-défense pour tous niveaux.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🧘</div>
+        <div class="service-num">03</div>
+        <div class="service-name">Yoga & Pilates</div>
+        <p class="service-desc">Studio dédié pour les séances de yoga, pilates et stretching. Idéal pour la récupération, la souplesse et le bien-être mental.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🚴</div>
+        <div class="service-num">04</div>
+        <div class="service-name">Cardio Training</div>
+        <p class="service-desc">Spinning, HIIT, Zumba — des cours collectifs à haute intensité pour brûler des calories et garder la motivation au top.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">👤</div>
+        <div class="service-num">05</div>
+        <div class="service-name">Coaching Perso</div>
+        <p class="service-desc">Programme 100% sur mesure avec un coach dédié. Bilan initial, suivi nutritionnel et ajustement continu de tes séances.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏊</div>
+        <div class="service-num">06</div>
+        <div class="service-name">Aqua & Sauna</div>
+        <p class="service-desc">Piscine, hammam et sauna pour la récupération active. Espace détente réservé aux membres Premium et Elite.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HORAIRES -->
+  <section class="horaires" id="horaires" style="padding:7rem 6rem;">
+    <p class="section-tag">Quand venir</p>
+    <h2 class="section-title" style="color:white;margin-bottom:4rem;">Horaires<br>d'Ouverture</h2>
+    <div class="horaires-grid">
+      <div class="horaire-row">
+        <span class="horaire-day">Lundi</span>
+        <span class="horaire-time">06:00 — 23:00</span>
+      </div>
+      <div class="horaire-row">
+        <span class="horaire-day">Mardi</span>
+        <span class="horaire-time">06:00 — 23:00</span>
+      </div>
+      <div class="horaire-row">
+        <span class="horaire-day">Mercredi</span>
+        <span class="horaire-time">06:00 — 23:00</span>
+      </div>
+      <div class="horaire-row">
+        <span class="horaire-day">Jeudi</span>
+        <span class="horaire-time">06:00 — 23:00</span>
+      </div>
+      <div class="horaire-row">
+        <span class="horaire-day">Vendredi</span>
+        <span class="horaire-time">06:00 — 22:00</span>
+      </div>
+      <div class="horaire-row">
+        <span class="horaire-day">Samedi</span>
+        <span class="horaire-time">07:00 — 21:00</span>
+      </div>
+      <div class="horaire-row">
+        <span class="horaire-day">Dimanche</span>
+        <span class="horaire-time">08:00 — 19:00</span>
+      </div>
+      <div class="horaire-row">
+        <span class="horaire-day">Jours fériés</span>
+        <span class="horaire-time">09:00 — 17:00</span>
+      </div>
+      <div class="horaires-info">
+        ⚡ Les membres Elite ont accès 24h/24 avec leur badge d'accès personnel.
+      </div>
+    </div>
+  </section>
+
+  <!-- TARIFS -->
+  <section class="tarifs" id="tarifs">
+    <p class="section-tag">Investis en toi</p>
+    <h2 class="section-title">Nos<br>Abonnements</h2>
+    <div class="tarifs-grid">
+      <div class="tarif-card">
+        <div class="tarif-name">Starter</div>
+        <div class="tarif-price"><span class="currency">€</span>29</div>
+        <div class="tarif-period">/ mois — sans engagement</div>
+        <ul class="tarif-features">
+          <li>Accès musculation & cardio</li>
+          <li>Vestiaires & douches</li>
+          <li>Application APEX</li>
+          <li>2 cours collectifs/sem</li>
+        </ul>
+        <button class="btn-tarif">Choisir Starter</button>
+      </div>
+      <div class="tarif-card featured">
+        <div class="tarif-badge">Le plus populaire</div>
+        <div class="tarif-name">Premium</div>
+        <div class="tarif-price"><span class="currency">€</span>49</div>
+        <div class="tarif-period">/ mois — sans engagement</div>
+        <ul class="tarif-features">
+          <li>Tout Starter inclus</li>
+          <li>Cours collectifs illimités</li>
+          <li>Accès piscine & sauna</li>
+          <li>1 séance coaching/mois</li>
+          <li>Suivi nutritionnel</li>
+        </ul>
+        <button class="btn-tarif">Choisir Premium</button>
+      </div>
+      <div class="tarif-card">
+        <div class="tarif-name">Elite</div>
+        <div class="tarif-price"><span class="currency">€</span>79</div>
+        <div class="tarif-period">/ mois — sans engagement</div>
+        <ul class="tarif-features">
+          <li>Tout Premium inclus</li>
+          <li>Accès 24h/24 — 7j/7</li>
+          <li>Coach personnel dédié</li>
+          <li>Bilan corporel mensuel</li>
+          <li>Invité gratuit / semaine</li>
+        </ul>
+        <button class="btn-tarif">Choisir Elite</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact" style="padding:7rem 6rem;">
+    <div class="cta-text">
+      <p class="section-tag">Commence aujourd'hui</p>
+      <h2 class="section-title" style="color:white;">
+        Séance d'essai<br>
+        <span class="accent-line">100% gratuite</span>
+      </h2>
+    </div>
+    <div class="cta-action">
+      <div class="cta-address">
+        12 rue de la Paix, 31000 Toulouse<br>
+        📞 05 61 00 12 34 &nbsp;|&nbsp; contact@apex-fitness.fr
+      </div>
+      <button class="btn-large">Réserver mon essai</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo"><span>A</span>PEX Fitness Toulouse</div>
+    <div class="footer-copy">© 2026 APEX Fitness — Tous droits réservés</div>
+    <div class="footer-links">
+      <a href="#">Mentions légales</a>
+      <a href="#">CGU</a>
+      <a href="#">Instagram</a>
+    </div>
+  </footer>
+
+</body>
+</html>
